@@ -1,8 +1,9 @@
-import React from "react";
-import axios from "axios";
-import { Header, Checkbox, Table, Icon } from "semantic-ui-react";
-import cookie from "js-cookie";
-import baseUrl from "../../utils/baseUrl";
+import React from 'react';
+import axios from 'axios';
+import { Header, Checkbox, Table, Icon } from 'semantic-ui-react';
+import cookie from 'js-cookie';
+import baseUrl from '../../utils/baseUrl';
+import formatDate from '../../utils/formatDate';
 
 function AccountPermissions() {
   const [users, setUsers] = React.useState([]);
@@ -13,14 +14,14 @@ function AccountPermissions() {
 
   async function getUsers() {
     const url = `${baseUrl}/api/users`;
-    const token = cookie.get("token");
+    const token = cookie.get('token');
     const payload = { headers: { Authorization: token } };
     const response = await axios.get(url, payload);
     setUsers(response.data);
   }
 
   return (
-    <div style={{ margin: "2em 0" }}>
+    <div style={{ margin: '2em 0' }}>
       <Header as="h2">
         <Icon name="settings" />
         User Permissions
@@ -48,7 +49,7 @@ function AccountPermissions() {
 }
 
 function UserPermission({ user }) {
-  const [admin, setAdmin] = React.useState(user.role === "admin");
+  const [admin, setAdmin] = React.useState(user.role === 'admin');
   const isFirstRun = React.useRef(true);
 
   React.useEffect(() => {
@@ -65,7 +66,7 @@ function UserPermission({ user }) {
 
   async function updatePermission() {
     const url = `${baseUrl}/api/account`;
-    const payload = { _id: user._id, role: admin ? "admin" : "user" };
+    const payload = { _id: user._id, role: admin ? 'admin' : 'user' };
     await axios.put(url, payload);
   }
 
@@ -76,9 +77,9 @@ function UserPermission({ user }) {
       </Table.Cell>
       <Table.Cell>{user.name}</Table.Cell>
       <Table.Cell>{user.email}</Table.Cell>
-      <Table.Cell>{user.createdAt}</Table.Cell>
-      <Table.Cell>{user.updatedAt}</Table.Cell>
-      <Table.Cell>{admin ? "admin" : "user"}</Table.Cell>
+      <Table.Cell>{formatDate(user.createdAt)}</Table.Cell>
+      <Table.Cell>{formatDate(user.updatedAt)}</Table.Cell>
+      <Table.Cell>{admin ? 'admin' : 'user'}</Table.Cell>
     </Table.Row>
   );
 }
