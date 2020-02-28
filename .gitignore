@@ -2,3 +2,5 @@ node_modules
 next.config.js
 now.json
 .next
+
+.now
