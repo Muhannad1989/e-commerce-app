@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Form,
   Input,
@@ -7,26 +7,26 @@ import {
   Image,
   Message,
   Header,
-  Icon,
-} from 'semantic-ui-react';
-import axios from 'axios';
-import baseUrl from '../utils/baseUrl';
-import catchErrors from '../utils/catchErrors';
+  Icon
+} from "semantic-ui-react";
+import axios from "axios";
+import baseUrl from "../utils/baseUrl";
+import catchErrors from "../utils/catchErrors";
 
 const INITIAL_PRODUCT = {
-  name: '',
-  price: '',
-  media: '',
-  description: '',
+  name: "",
+  price: "",
+  media: "",
+  description: ""
 };
 
 function CreateProduct() {
   const [product, setProduct] = React.useState(INITIAL_PRODUCT);
-  const [mediaPreview, setMediaPreview] = React.useState('');
+  const [mediaPreview, setMediaPreview] = React.useState("");
   const [success, setSuccess] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [disabled, setDisabled] = React.useState(true);
-  const [error, setError] = React.useState('');
+  const [error, setError] = React.useState("");
 
   React.useEffect(() => {
     const isProduct = Object.values(product).every(el => Boolean(el));
@@ -35,7 +35,7 @@ function CreateProduct() {
 
   function handleChange(event) {
     const { name, value, files } = event.target;
-    if (name === 'media') {
+    if (name === "media") {
       setProduct(prevState => ({ ...prevState, media: files[0] }));
       setMediaPreview(window.URL.createObjectURL(files[0]));
     } else {
@@ -45,9 +45,9 @@ function CreateProduct() {
 
   async function handleImageUpload() {
     const data = new FormData();
-    data.append('file', product.media);
-    data.append('upload_preset', 'reactreserve');
-    data.append('dkqdudha3', 'reedbargercodes');
+    data.append("file", product.media);
+    data.append("upload_preset", "reactreserve");
+    data.append("cloud_name", "reedbargercodes");
     const response = await axios.post(process.env.CLOUDINARY_URL, data);
     const mediaUrl = response.data.url;
     return mediaUrl;
@@ -56,10 +56,9 @@ function CreateProduct() {
   async function handleSubmit(event) {
     try {
       event.preventDefault();
-      setError('');
       setLoading(true);
+      setError("");
       const mediaUrl = await handleImageUpload();
-      console.log({ mediaUrl });
       const url = `${baseUrl}/api/product`;
       const { name, price, description } = product;
       const payload = { name, price, description, mediaUrl };
