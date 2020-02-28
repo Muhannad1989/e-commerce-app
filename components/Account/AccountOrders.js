@@ -6,9 +6,9 @@ import {
   Icon,
   Button,
   List,
-  Image
-} from "semantic-ui-react";
-import { useRouter } from "next/router";
+  Image,
+} from 'semantic-ui-react';
+import { useRouter } from 'next/router';
 
 function AccountOrders({ orders }) {
   const router = useRouter();
@@ -17,7 +17,7 @@ function AccountOrders({ orders }) {
     return orders.map(order => ({
       key: order._id,
       title: {
-        content: <Label color="blue" content={order.createdAt} />
+        content: <Label color="blue" content={order.createdAt} />,
       },
       content: {
         content: (
@@ -29,12 +29,12 @@ function AccountOrders({ orders }) {
                 icon="mail"
                 basic
                 horizontal
-                style={{ marginLeft: "1em" }}
+                style={{ marginLeft: '1em' }}
               />
             </List.Header>
             <List>
-              {order.products.map(p => (
-                <List.Item>
+              {order.products.map((p, index) => (
+                <List.Item key={index}>
                   <Image avatar src={p.product.mediaUrl} />
                   <List.Content>
                     <List.Header>{p.product.name}</List.Header>
@@ -51,8 +51,8 @@ function AccountOrders({ orders }) {
               ))}
             </List>
           </>
-        )
-      }
+        ),
+      },
     }));
   }
 
@@ -69,7 +69,7 @@ function AccountOrders({ orders }) {
             No past orders.
           </Header>
           <div>
-            <Button onClick={() => router.push("/")} color="orange">
+            <Button onClick={() => router.push('/')} color="orange">
               View Products
             </Button>
           </div>

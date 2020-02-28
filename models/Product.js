@@ -1,31 +1,31 @@
-import mongoose from "mongoose";
-import shortid from "shortid";
+import mongoose from 'mongoose';
+import shortid from 'shortid';
 
 const { String, Number } = mongoose.Schema.Types;
 
 const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   price: {
     type: Number,
-    required: true
+    required: true,
   },
   sku: {
     type: String,
     unique: true,
-    default: shortid.generate()
+    default: shortid.generate(),
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   mediaUrl: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
-// prettier-ignore
-export default mongoose.models.Product || mongoose.model("Product", ProductSchema);
+export default mongoose.models.Product ||
+  mongoose.model('Product', ProductSchema);

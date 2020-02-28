@@ -1,4 +1,4 @@
-import { Header, Icon, Segment, Label } from "semantic-ui-react";
+import { Header, Icon, Segment, Label } from 'semantic-ui-react';
 
 function AccountHeader({ role, email, name, createdAt }) {
   return (
@@ -8,7 +8,7 @@ function AccountHeader({ role, email, name, createdAt }) {
         size="large"
         ribbon
         icon="privacy"
-        style={{ textTransform: "capitalize" }}
+        style={{ textTransform: 'capitalize' }}
         content={role}
       />
       <Header inverted textAlign="center" as="h1" icon>
